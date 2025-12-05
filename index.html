@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャラクターリンク</title>
+
+    <style>
+        .generator-section {
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 2px solid #eee;
+            text-align: left;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /*いきかな表示エリア*/
+        #display-area{
+            border: 2px solid #00aaff;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+
+            display: flex;
+            flex-wrap: wrap;
+
+            align-items: flex-start;
+            gap: 0;
+            line-height: 1;
+            box-sizing: content-box;
+        }
+
+        /*改行*/
+        .line-break{
+            width: 100%;
+            height: 0;
+            flex-basis: 100%;
+        }
+
+        /*空白行（改行）*/
+        .line-break.blank-row {
+            height: 70px; /*画像の高さと同じ高さ*/
+        }
+
+        /*いきかなの画像の要素スタイル*/
+        .char-image{
+            width: 70px;
+            height: 70px;
+            display: block;
+            transform-origin: bottom left;
+        }
+
+        /*小文字対応*/
+        .char-image.small-char{
+            transform: scale(0.7);
+        }
+
+        /*半角/全角スペース対応*/
+        .space-char{
+            height: 70px;
+            display: inline-block;
+        }
+
+        .space-char.half{ /*半角スペース*/
+            width: 35px;
+        }
+
+        .space-char.full{ /*全角スペース*/
+            width: 70px;
+        }
+
+        /*表示内容が空の時*/
+        #display-area:empty::before{
+            content: "ここにいきかなが登場するよ！";
+            color: #999;
+            line-height: 80px;
+            display: block;
+            min-height: 120px;
+        }
+
+        /*ひらがな入力エリア*/
+        textarea{
+            width: 100%;
+            max-width: 400px;
+            height: 100px;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        /*画像出力ボタン*/
+        button{
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <img src="ikikana_50on.png" alt="写真" width="1200" usemap="#charMap">
+    </div>
+
+    <map name="charMap">
+
+        <!--あ行-->
+        <area shape="rect" coords="979,130,1058,230" href="https://x.com/ikikana_FUN/status/1973674383546974708?s=20"
+            alt="あ">
+        <area shape="rect" coords="979,234,1058,333" href="https://x.com/ikikana_FUN/status/1974036703041216971?s=20"
+            alt="い">
+        <area shape="rect" coords="979,337,1058,436" href="https://x.com/ikikana_FUN/status/1974399091221090427?s=20"
+            alt="う">
+        <area shape="rect" coords="979,440,1058,539" href="https://x.com/ikikana_FUN/status/1974761487081062523?s=20"
+            alt="え">
+        <area shape="rect" coords="979,543,1058,642" href="https://x.com/ikikana_FUN/status/1975123877853311166?s=20"
+            alt="お">
+
+        <!--か行-->
+        <area shape="rect" coords="894,130,973,230" href="https://x.com/ikikana_FUN/status/1975486262724239371?s=20"
+            alt="か">
+        <area shape="rect" coords="894,234,973,333" href="https://x.com/ikikana_FUN/status/1975848644906451084?s=20"
+            alt="き">
+        <area shape="rect" coords="894,337,973,436" href="https://x.com/ikikana_FUN/status/1976211030670967254?s=20"
+            alt="く">
+        <area shape="rect" coords="894,440,973,539" href="https://x.com/ikikana_FUN/status/1976573418670600406?s=20"
+            alt="け">
+        <area shape="rect" coords="894,543,973,642" href="https://x.com/ikikana_FUN/status/1977645483024622023?s=20"
+            alt="こ">
+
+        <!--さ行-->
+        <area shape="rect" coords="809,130,888,230" href="https://x.com/ikikana_FUN/status/1977660588701434322?s=20"
+            alt="さ">
+        <area shape="rect" coords="809,234,888,333" href="https://x.com/ikikana_FUN/status/1977675679983374339?s=20"
+            alt="し">
+        <area shape="rect" coords="809,337,888,436" href="https://x.com/ikikana_FUN/status/1978022974948282847?s=20"
+            alt="す">
+        <area shape="rect" coords="809,440,888,539" href="https://x.com/ikikana_FUN/status/1978385366219653133?s=20"
+            alt="せ">
+        <area shape="rect" coords="809,543,888,642" href="https://x.com/ikikana_FUN/status/1978747758162083928?s=20"
+            alt="そ">
+
+
+        <!--た行-->
+        <area shape="rect" coords="724,130,803,230" href="https://x.com/ikikana_FUN/status/1979110144748433828?s=20"
+            alt="た">
+        <area shape="rect" coords="724,234,803,333" href="https://x.com/ikikana_FUN/status/1979472531779162463?s=20"
+            alt="ち">
+        <area shape="rect" coords="724,337,803,436" href="https://x.com/ikikana_FUN/status/1979834912732565525?s=20"
+            alt="つ">
+        <area shape="rect" coords="724,440,803,539" href="https://x.com/ikikana_FUN/status/1980197306033987756?s=20"
+            alt="て">
+        <area shape="rect" coords="724,543,803,642" href="https://x.com/ikikana_FUN/status/1980906976252162466?s=20"
+            alt="と">
+
+
+        <!--な行-->
+        <area shape="rect" coords="639,130,719,230" href="https://x.com/ikikana_FUN/status/1980922081715134580?s=20"
+            alt="な">
+        <area shape="rect" coords="639,234,719,333" href="https://x.com/ikikana_FUN/status/1981299568852476169?s=20"
+            alt="に">
+        <area shape="rect" coords="639,337,719,436" href="https://x.com/ikikana_FUN/status/1981646850286329952?s=20"
+            alt="ぬ">
+        <area shape="rect" coords="639,440,719,539" href="https://x.com/ikikana_FUN/status/1982018642050166860?s=20"
+            alt="ね">
+        <area shape="rect" coords="639,543,719,642" href="https://x.com/ikikana_FUN/status/1982734011496907175?s=20"
+            alt="の">
+
+
+        <!--は行-->
+        <area shape="rect" coords="555,130,635,230" href="https://x.com/ikikana_FUN/status/1983458799571628350?s=20"
+            alt="は">
+        <area shape="rect" coords="555,234,635,333" href="https://x.com/ikikana_FUN/status/1983473894624522415?s=20"
+            alt="ひ">
+        <area shape="rect" coords="555,337,635,436" href="https://x.com/ikikana_FUN/status/1984183568290234756?s=20"
+            alt="ふ">
+        <area shape="rect" coords="555,440,635,539" href="https://x.com/ikikana_FUN/status/1984893240902844581?s=20"
+            alt="へ">
+        <area shape="rect" coords="555,543,635,642" href="https://x.com/ikikana_FUN/status/1984908343551652129?s=20"
+            alt="ほ">
+
+
+        <!--ま行-->
+        <area shape="rect" coords="470,130,550,230" href="https://x.com/ikikana_FUN/status/1985285857306345732?s=20"
+            alt="ま">
+        <area shape="rect" coords="470,234,550,333" href="https://x.com/ikikana_FUN/status/1985995511497719914?s=20"
+            alt="み">
+        <area shape="rect" coords="470,337,550,436" href="https://x.com/ikikana_FUN/status/1987429954100109760?s=20"
+            alt="む">
+        <area shape="rect" coords="470,440,550,539" href="https://x.com/ikikana_FUN/status/1987445055158718863?s=20"
+            alt="め">
+        <area shape="rect" coords="470,543,550,642" href="https://x.com/ikikana_FUN/status/1987807442013716503?s=20"
+            alt="も">
+
+
+        <!--や行-->
+        <area shape="rect" coords="385,130,465,230" href="https://x.com/ikikana_FUN/status/1988532221762805809?s=20"
+            alt="や">
+        <area shape="rect" coords="385,337,465,436" href="https://x.com/ikikana_FUN/status/1988547327250796643?s=20"
+            alt="ゆ">
+        <area shape="rect" coords="385,543,465,642" href="https://x.com/ikikana_FUN/status/1988894617761460284?s=20"
+            alt="よ">
+
+
+        <!--ら行-->
+        <area shape="rect" coords="300,130,380,230" href="https://x.com/ikikana_FUN/status/1989257009578004584?s=20"
+            alt="ら">
+        <area shape="rect" coords="300,234,380,333" href="https://x.com/ikikana_FUN/status/1990344161938026524?s=20"
+            alt="り">
+        <area shape="rect" coords="300,337,380,436" href="https://x.com/ikikana_FUN/status/1990359260614553869?s=20"
+            alt="る">
+        <area shape="rect" coords="300,440,380,539" href="https://x.com/ikikana_FUN/status/1991068931793223908?s=20"
+            alt="れ">
+        <area shape="rect" coords="300,543,380,642" href="https://x.com/ikikana_FUN/status/1991084033330106810?s=20"
+            alt="ろ">
+
+
+        <!--わ行-->
+        <area shape="rect" coords="215,130,295,230" href="https://x.com/ikikana_FUN/status/1992503387607482548?s=20"
+            alt="わ">
+        <area shape="rect" coords="215,234,295,333" href="https://x.com/ikikana_FUN/status/1992510934615491013?s=20"
+            alt="ゐ">
+        <area shape="rect" coords="215,440,295,539" href="https://x.com/ikikana_FUN/status/1992518486858588330?s=20"
+            alt="ゑ">
+        <area shape="rect" coords="215,543,295,642" href="https://x.com/ikikana_FUN/status/1992526035515294143?s=20"
+            alt="を">
+        <area shape="rect" coords="130,130,210,230" href="https://x.com/ikikana_FUN/status/1992533589117022294?s=20"
+            alt="ん">
+
+
+
+    </map>
+
+    <div class="generator-section">
+        <hr>
+        <h2>いきかなジェネレーター</h2>
+
+        <p>ひらがなを入力すると、いきかなたちが登場するよ！</p>
+        <!--最大100文字-->
+        <textarea id="input-text" placeholder="ひらがな、スペース、改行のみ入力できます" maxlength="100"></textarea>
+        
+        <h3>表示プレビュー</h3>
+        <div id="display-area"></div>
+
+        <button id="download-button" disabled>表示内容を画像としてダウンロード</button>
+    </div>
+    <hr>
+
+    <script>
+        // HTMLの要素を取得
+        const inputText = document.getElementById('input-text');
+        const displayArea = document.getElementById('display-area');
+        const downloadButton = document.getElementById('download-button');
+
+        // 文字のサイズ定数
+        const CHAR_WIDTH = 70; 
+        const SPACE_HALF_WIDTH = 35;
+        const SPACE_FULL_WIDTH = 70;
+        const MAX_CHARS_PER_LINE = 15; // 1行15文字
+
+        // 入力できる文字の制限
+        const allowedCharsRegex = /^[ぁ-ん\s\u3000\n]*$/;
+
+        // 小さい文字を大きい文字に変換する辞書
+        const smallToLargeMap = {
+            'ゃ': 'や', 'ゅ': 'ゆ', 'ょ': 'よ',
+            'っ': 'つ',
+            'ぁ': 'あ', 'ぃ': 'い', 'ぅ': 'う', 'ぇ': 'え', 'ぉ': 'お'
+        };
+
+        // ランダムに表示するやつら
+        const randomVariants = {
+            'き': 4, // き1.png, き2.png, き3.png, き4.png
+            'ぎ': 4, // ぎ1.png, ぎ2.png, ぎ3.png, ぎ4.png
+            'そ': 2, // そ1.png, そ2.png
+            'ぞ': 2, // ぞ1.png, ぞ2.png
+            'る': 2  // る1.png, る2.png
+        };
+
+        // ↑のやつらの結果を保持するキャッシュオブジェクト
+        let variantCache = {};
+
+        // 最も広い行の幅をピクセルで計算する関数
+        function calculateWidestLinePixels(sanitizedText) {
+            const lines = sanitizedText.split('\n');
+            let maxEffectiveContentWidth = 0; // 最も幅のある行を記録するための変数
+
+            for (const line of lines) { // 行ごとにチェック
+                let currentLineContentWidth = 0; // 行の幅
+                let charCounter = 0; // 行中の文字数
+                
+                // 15文字分のみ計算する（自動折り返しをシミュレート）
+                for (let i = 0; i < line.length && charCounter < MAX_CHARS_PER_LINE; i++) {
+                    const char = line[i];
+                    
+                    if (char === ' ') { // 半角スペース
+                        currentLineContentWidth += SPACE_HALF_WIDTH;
+                        charCounter++;
+                    } else if (char === '　') { // 全角スペース
+                        currentLineContentWidth += SPACE_FULL_WIDTH;
+                        charCounter++;
+                    } else { // ひらがな
+                        currentLineContentWidth += CHAR_WIDTH;
+                        charCounter++;
+                    }
+                }
+                
+                // 最も幅の広い行で更新
+                if (currentLineContentWidth > maxEffectiveContentWidth) {
+                    maxEffectiveContentWidth = currentLineContentWidth;
+                }
+            }
+            
+            // 全行で空なら"auto"を返す
+            if (maxEffectiveContentWidth === 0) {
+                return 'auto';
+            }
+
+            // 最大の幅を返す
+            return maxEffectiveContentWidth; 
+        }
+
+        // 【入力制御と画像表示の更新】
+        // 更新タイミング
+        inputText.addEventListener('input', updateDisplay); //通常の入力変化
+        inputText.addEventListener('compositionend', updateDisplay);  //日本語IMEなどで確定されたタイミング
+
+        function updateDisplay(event) {
+            // IMEの段階でisComposingがtrueの時はすぐに返す
+            if(event && event.isComposing){
+                return;
+            }
+
+            let value = inputText.value; // 入力されたそのままの文字列
+            let sanitizedValue = ''; // チェックされた後の文字を入れる
+            let needsSanitization = false; // 不正文字除去が必要かどうか
+            
+            // 許可されていない文字をチェック・削除
+            for (let i = 0; i < value.length; i++) {
+                const char = value[i];
+                if (allowedCharsRegex.test(char)) {
+                    sanitizedValue += char;
+                } else {
+                    needsSanitization = true;
+                }
+                if (sanitizedValue.length >= 100) {
+                     break;
+                }
+            }
+
+            if (needsSanitization) {
+                inputText.value = sanitizedValue;
+            }
+
+            // 表示エリアの幅を、最も広い行のコンテンツ幅に合わせて事前に固定する
+            const requiredWidth = calculateWidestLinePixels(sanitizedValue);
+            if (requiredWidth === 'auto') { // 幅がauto　＝　中身が空
+                displayArea.style.width = 'auto'; 
+                downloadButton.disabled = true;
+                displayArea.innerHTML = '';
+                // 入力が空になったらキャッシュもリセット
+                variantCache = {}; 
+                return;
+            } else {
+                displayArea.style.width = `${requiredWidth}px`;
+                downloadButton.disabled = false;
+            }
+
+            // 表示エリアをクリア
+            displayArea.innerHTML = '';
+
+            // キャッシュを更新するための新しいキャッシュオブジェクト
+            let newVariantCache = {};
+            let charPosition = 0; // 入力文字列の先頭からの絶対的な文字位置
+            
+            const lines = sanitizedValue.split('\n'); // 文字列を改行ごとに分割し、配列にする
+
+            // 各行・各文字の処理
+            for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+                const lineContent = lines[lineIndex];
+
+                // 1. 行コンテンツ（ひらがなやスペース）の処理
+                for (let i = 0; i < lineContent.length; i++) {
+                    const char = lineContent[i];
+                    
+                    if (char === ' ') { // 半角スペース
+                        const spaceDiv = document.createElement('span');
+                        spaceDiv.className = 'space-char half';
+                        displayArea.appendChild(spaceDiv);
+                    } else if (char === '　') { // 全角スペース (\u3000)
+                        const spaceDiv = document.createElement('span');
+                        spaceDiv.className = 'space-char full';
+                        displayArea.appendChild(spaceDiv);
+                    } else { // ひらがな
+                        const charImage = document.createElement('img');
+                        let charToUseForFile = char; 
+                        let isSmall = false; 
+
+                        if (smallToLargeMap[charToUseForFile]) {
+                            charToUseForFile = smallToLargeMap[charToUseForFile]; 
+                            isSmall = true;
+                        }
+                        
+                        // ランダム画像選択のロジックとキャッシュの適用
+                        if (randomVariants[charToUseForFile]) {
+                            const cacheKey = charPosition.toString(); // 数値をキーとして使用
+                            let randomIndex;
+
+                            if (variantCache.hasOwnProperty(cacheKey)) {
+                                // 既存のキャッシュを使用: 選択されたバリエーションを再利用
+                                randomIndex = variantCache[cacheKey];
+                            } else {
+                                // 新しい文字: 新しいインデックスを生成
+                                const numVariants = randomVariants[charToUseForFile];
+                                randomIndex = Math.floor(Math.random() * numVariants) + 1;
+                            }
+                            
+                            // 新しいキャッシュに保存
+                            newVariantCache[cacheKey] = randomIndex;
+
+                            // ファイル名を 'き' -> 'き1' のように設定
+                            charToUseForFile = charToUseForFile + randomIndex; 
+                        }
+                        
+                        charImage.src = `${charToUseForFile}.png`; 
+                        charImage.alt = char;
+                        charImage.className = 'char-image';
+                        
+                        if (isSmall) {
+                            charImage.classList.add('small-char');
+                        }
+                        
+                        displayArea.appendChild(charImage);
+                    }
+                    
+                    charPosition++; // 文字/スペースの位置をインクリメント
+
+                }
+                
+                // 2. 行区切り要素 (改行文字) の処理
+                if (lineIndex < lines.length - 1) { // 最後の行以外は改行要素を追加
+                    const brDiv = document.createElement('div');
+                    brDiv.className = 'line-break';
+                    
+                    if (lineContent.length === 0) {
+                        brDiv.classList.add('blank-row');
+                    }
+                    
+                    displayArea.appendChild(brDiv);
+                    charPosition++; // 改行文字の位置もインクリメント
+                }
+            }
+            // ★最後に、キャッシュを更新する (削除された文字のキャッシュは破棄される)★
+            variantCache = newVariantCache;
+
+        }
+
+        // --- 2. 画像として生成しダウンロード ---
+        downloadButton.addEventListener('click', downloadImage);
+        
+        function downloadImage() {
+            html2canvas(displayArea, {
+                scale: 4, // 解像度
+                useCORS: true, 
+                backgroundColor: '#ffffff', 
+            }).then(canvas => {
+                const imageURI = canvas.toDataURL('image/png');
+                
+                const link = document.createElement('a');
+                link.href = imageURI;
+                link.download = 'ikikana_set.png'; 
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+        
+        // 初期表示を更新
+        updateDisplay();
+
+
+    </script>
+    <p class="notice">
+        Simejiなどの拡張キーボードをご使用の場合、一部の入力が制限される可能性があります。あらかじめご了承ください。
+    </p>
+
+</body>
+
+</html>
